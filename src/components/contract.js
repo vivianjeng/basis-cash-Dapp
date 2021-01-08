@@ -1,12 +1,12 @@
 import React from "react";
 import { ethers, Contract } from "ethers";
 import { formatUnits } from "ethers/lib/utils";
-import { infuraKey, cashAddress } from "../../config";
+import { infuraKey } from "../../config";
 
 class contractProvider {
-  constructor() {
+  constructor(address) {
     this.provider = new ethers.providers.InfuraProvider("homestead", infuraKey);
-    this.contract = new Contract(cashAddress, ABI, this.provider);
+    this.contract = new Contract(address, ABI, this.provider);
   }
 
   totalSupply() {
