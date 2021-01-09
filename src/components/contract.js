@@ -13,6 +13,10 @@ class contractProvider {
     return this.contract.totalSupply();
   }
 
+  getProvider() {
+    return this.provider;
+  }
+
   async displayTotalSupply() {
     const supply = await this.totalSupply();
     return Number(formatUnits(supply, this.decimal)).toFixed(0);
