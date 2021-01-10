@@ -18,6 +18,10 @@ export class BasisCash {
   constructor(props) {
     this.state = { cash: "", bond: "", share: "" };
     this.contracts = {};
+    this.BAC = new contractProvider(cashAddress);
+    this.BAS = new contractProvider(shareAddress);
+    this.BAB = new contractProvider(bondAddress);
+    this.provider = this.BAC.getProvider();
     for (const [name, deployment] of Object.entries(deployments)) {
       this.contracts[name] = new Contract(
         deployment.address,
@@ -29,10 +33,6 @@ export class BasisCash {
     for (const [symbol, [address, decimal]] of Object.entries(externalTokens)) {
       this.externalTokens[symbol] = new contractProvider(address);
     }
-    this.BAC = new contractProvider(cashAddress);
-    this.BAS = new contractProvider(shareAddress);
-    this.BAB = new contractProvider(bondAddress);
-    this.provider = this.BAC.getProvider();
   }
 
   async getCashStatFromUniswap() {
@@ -67,12 +67,29 @@ export class BasisCash {
   }
 
   getBalance(balance, decimals = 18) {
-    balance.div(BigNumber.from(10).pow(decimals)).toNumber();
+    return balance.div(BigNumber.from(10).pow(decimals)).toNumber();
   }
 
-  getDisplayBalace(balance, decimals = 18, fractionDigits = 3) {
+  getDisplayBalance(balance, decimals = 18, fractionDigits = 3) {
     const number = this.getBalance(balance, decimals - fractionDigits);
     return (number / 10 ** fractionDigits).toFixed(fractionDigits);
+  }
+
+  async getBondOraclePriceInLastTWAP() {
+    const { Treasury } = this.contracts;
+    return Treasury.getBondOraclePrice();
+  }
+
+  async getBondStat() {
+    const decimals = BigNumber.from(10).pow(18);
+
+    const cashPrice = await this.getBondOraclePriceInLastTWAP();
+    const bondPrice = cashPrice.pow(2).div(decimals);
+
+    return {
+      priceInDAI: this.getDisplayBalance(bondPrice),
+      totalSupply: await this.BAB.displayTotalSupply()
+    };
   }
 }
 
