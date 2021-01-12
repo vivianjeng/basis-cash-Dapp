@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { chainID } from "../../config";
 import { useWallet, UseWalletProvider } from "use-wallet";
 import BasisCash from "./BasisCash";
+import { ethers } from "ethers";
 
 function unlockWallet(wallet) {
   wallet.connect();

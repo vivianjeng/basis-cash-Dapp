@@ -1,6 +1,7 @@
 import React, { Component, useEffect } from "react";
 import WalletProvider from "./components/wallet";
 import BasisCash from "./components/BasisCash";
+import "./styles.css";
 
 class App extends Component {
   constructor(props) {
@@ -36,14 +37,26 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h1>Hello</h1>
+        <h1 className="App">Hello</h1>
         <WalletProvider />
-        <h2>Basis Cash Total Supply: {this.state.cash}</h2>
-        <h2>Basis Cash State From Uniswap: {this.state.cashprice}</h2>
-        <h2>Basis Share Supply: {this.state.share}</h2>
-        <h2>Basis Share State From Uniswap: {this.state.sharePrice}</h2>
-        <h2>Basis Bond Supply: {this.state.bond}</h2>
-        <h2>Basis Bond State From Uniswap: {this.state.bondPrice}</h2>
+        <div className="card">
+          <p>Basis Cash Total Supply: </p>
+          <h2>{this.state.cash}</h2>
+          <p>Basis Cash State From Uniswap: </p>
+          <h2>{this.state.cashprice}</h2>
+        </div>
+        <div className="card">
+          <p>Basis Share Supply: </p>
+          <h2>{this.state.share}</h2>
+          <p>Basis Share State From Uniswap: </p>
+          <h2>{this.state.sharePrice}</h2>
+        </div>
+        <div className="card">
+          <p>Basis Bond Supply: </p>
+          <h2>{this.state.bond}</h2>
+          <p>Basis Bond State From Uniswap: </p>
+          <h2>{this.state.bondPrice}</h2>
+        </div>
       </div>
     );
   }

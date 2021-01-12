@@ -2,3 +2,19 @@
   font-family: sans-serif;
   text-align: center;
 }
+
+.card {
+  background-color: antiquewhite;
+  color: saddlebrown;
+  width: 30%;
+  float: left;
+  margin-right: 3%;
+  text-align: center;
+}
+
+body {
+  background-color: darkslategray;
+  color: aquamarine;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
