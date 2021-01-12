@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import WalletProvider from "./components/wallet";
 import BasisCash from "./components/BasisCash";
 
@@ -29,6 +29,7 @@ class App extends Component {
         sharePrice: shareState.priceInDAI
       });
     };
+
     contractValue();
   }
 

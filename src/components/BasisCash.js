@@ -2,6 +2,8 @@ import React from "react";
 import { ethers, Contract, BigNumber } from "ethers";
 import { formatUnits } from "ethers/lib/utils";
 import contractProvider from "./contract";
+import { useWallet, UseWalletProvider } from "use-wallet";
+import { decimalToBalance } from "./ethers-utils";
 import {
   infuraKey,
   chainId,
@@ -32,6 +34,25 @@ export class BasisCash {
     this.externalTokens = {};
     for (const [symbol, [address, decimal]] of Object.entries(externalTokens)) {
       this.externalTokens[symbol] = new contractProvider(address);
+    }
+  }
+
+  unlockWallet(ethereum, account) {
+    const newProvider = new ethers.providers.Web3Provider(ethereum, chainId);
+    this.signer = newProvider.getSigner(0);
+    this.myAccount = account;
+    for (const [name, contract] of Object.entries(this.contracts)) {
+      this.contracts[name] = contract.connect(this.signer);
+    }
+    const tokens = [
+      this.BAC,
+      this.BAS,
+      this.BAB,
+      ...Object.values(this.externalTokens)
+    ];
+    for (const token of tokens) {
+      token.connect(this.signer);
+      console.log(token);
     }
   }
 
@@ -90,6 +111,18 @@ export class BasisCash {
       priceInDAI: this.getDisplayBalance(bondPrice),
       totalSupply: await this.BAB.displayTotalSupply()
     };
+  }
+
+  /**
+   * Buy bonds with cash
+   * @param amount amout of cash to purchase bonds with.
+   * **/
+  async buyBonds(amount) {
+    const { Treasury } = this.contracts;
+    return await Treasury.buyBonds(
+      decimalToBalance(amount),
+      await this.getBondOraclePriceInLastTWAP()
+    );
   }
 }
 

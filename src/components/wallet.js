@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { chainID } from "../../config";
 import { useWallet, UseWalletProvider } from "use-wallet";
+import BasisCash from "./BasisCash";
+
+function unlockWallet(wallet) {
+  wallet.connect();
+}
+
+function connectContracts(wallet) {
+  const basis = new BasisCash();
+  basis.unlockWallet(wallet.ethereum, wallet.account);
+}
 
 function WalletProvider() {
   const wallet = useWallet();
-  const blockNumber = wallet.getBlockNumber();
+  // console.log(wallet.status);
 
   return (
     <>
@@ -13,12 +23,15 @@ function WalletProvider() {
         <div>
           <div>Account: {wallet.account}</div>
           <div>Balance: {wallet.balance}</div>
-          <button onClick={() => wallet.reset()}>disconnect</button>
+          <button onClick={() => connectContracts(wallet)}>
+            Connect contracts
+          </button>
+          <button onClick={() => wallet.reset()}>Disconnect</button>
         </div>
       ) : (
         <div>
           Connect:
-          <button onClick={() => wallet.connect()}>MetaMask</button>
+          <button onClick={() => unlockWallet(wallet)}>MetaMask</button>
         </div>
       )}
     </>

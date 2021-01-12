@@ -5,6 +5,7 @@ import { infuraKey } from "../../config";
 
 class contractProvider {
   constructor(address) {
+    this.address = address;
     this.provider = new ethers.providers.InfuraProvider("homestead", infuraKey);
     this.contract = new Contract(address, ABI, this.provider);
   }
@@ -15,6 +16,10 @@ class contractProvider {
 
   getProvider() {
     return this.provider;
+  }
+
+  connect(signerOrProver) {
+    this.contract = new Contract(this.address, ABI, signerOrProver);
   }
 
   async displayTotalSupply() {
