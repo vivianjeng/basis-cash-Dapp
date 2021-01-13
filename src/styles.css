@@ -8,7 +8,8 @@
   color: saddlebrown;
   width: 30%;
   float: left;
-  margin-right: 3%;
+  margin: 1%;
+  padding: 5px;
   text-align: center;
 }
 
@@ -17,4 +18,17 @@ body {
   color: aquamarine;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
+}
+
+.btn {
+  background-color: orange;
+  color: white;
+  border-radius: 5px;
+  padding: 10px 20px;
+  border: 2px blue None;
+  margin: 10px;
+}
+
+.btn:hover {
+  background-color: rgb(240, 195, 111);
 }

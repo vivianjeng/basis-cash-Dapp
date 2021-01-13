@@ -2,6 +2,7 @@ import React, { Component, useEffect } from "react";
 import WalletProvider from "./components/wallet";
 import BasisCash from "./components/BasisCash";
 import "./styles.css";
+// import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 class App extends Component {
   constructor(props) {
@@ -37,7 +38,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h1 className="App">Hello</h1>
+        <h1 className="App">Basis Cash DApp</h1>
         <WalletProvider />
         <div className="card">
           <p>Basis Cash Total Supply: </p>
