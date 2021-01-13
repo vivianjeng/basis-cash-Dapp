@@ -38,7 +38,8 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h1 className="App">Basis Cash DApp</h1>
+        <p className="icon">🍵</p>
+        <h1 align="center">Basis Cash DApp</h1>
         <WalletProvider />
         <div className="card">
           <p>Basis Cash Total Supply: </p>

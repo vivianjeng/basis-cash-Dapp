@@ -1,9 +1,14 @@
-.App {
-  font-family: sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
+
+.icon {
   text-align: center;
+  font-size: 70px;
+  margin: 0px;
 }
 
 .card {
+  border-radius: 10px;
+  box-shadow: inset 1px 1px 0px rgb(247, 238, 226);
   background-color: antiquewhite;
   color: saddlebrown;
   width: 30%;
@@ -13,11 +18,21 @@
   text-align: center;
 }
 
+.wallet {
+  border-radius: 10px;
+  box-shadow: inset 1px 1px 0px rgb(1, 21, 56);
+  background-color: rgb(0, 23, 46);
+  color: cornflowerblue;
+  align-items: center;
+  margin: 1%;
+  padding: 5px;
+  text-align: center;
+}
+
 body {
   background-color: darkslategray;
   color: aquamarine;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
+  font-family: "Ubuntu", sans-serif;
 }
 
 .btn {
