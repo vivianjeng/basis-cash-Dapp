@@ -52,15 +52,13 @@ export class BasisCash {
     ];
     for (const token of tokens) {
       token.connect(this.signer);
-      console.log(token);
     }
   }
 
   async getCashStatFromUniswap() {
-    const supply = await this.BAC.displayTotalSupply();
     return {
       priceInDAI: await this.getTokenPriceFromUniswap(this.BAC),
-      totalSupply: supply
+      totalSupply: await this.BAC.displayTotalSupply()
     };
   }
 
@@ -102,13 +100,14 @@ export class BasisCash {
   }
 
   async getBondStat() {
-    const decimals = BigNumber.from(10).pow(18);
+    // const decimals = BigNumber.from(10).pow(18);
 
-    const cashPrice = await this.getBondOraclePriceInLastTWAP();
-    const bondPrice = cashPrice.pow(2).div(decimals);
+    // const cashPrice = await this.getBondOraclePriceInLastTWAP();
+    // const bondPrice = cashPrice.pow(2).div(decimals);
+    const cashPrice = await this.getTokenPriceFromUniswap(this.BAC);
 
     return {
-      priceInDAI: this.getDisplayBalance(bondPrice),
+      priceInDAI: (cashPrice ** 2).toFixed(3),
       totalSupply: await this.BAB.displayTotalSupply()
     };
   }

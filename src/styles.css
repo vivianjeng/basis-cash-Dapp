@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Architects+Daughter&family=El+Messiri&display=swap");
 
 .icon {
   text-align: center;
@@ -8,9 +8,9 @@
 
 .card {
   border-radius: 10px;
-  box-shadow: inset 1px 1px 0px rgb(247, 238, 226);
-  background-color: antiquewhite;
-  color: saddlebrown;
+  box-shadow: inset 1px 1px 0px rgb(238, 238, 238);
+  background-color: rgb(247, 247, 247);
+  color: rgb(87, 87, 87);
   width: 30%;
   float: left;
   margin: 1%;
@@ -20,19 +20,13 @@
 
 .wallet {
   border-radius: 10px;
-  box-shadow: inset 1px 1px 0px rgb(1, 21, 56);
-  background-color: rgb(0, 23, 46);
-  color: cornflowerblue;
-  align-items: center;
+  color: rgb(41, 56, 83);
   margin: 1%;
   padding: 5px;
-  text-align: center;
 }
 
 body {
-  background-color: darkslategray;
-  color: aquamarine;
-  font-family: "Ubuntu", sans-serif;
+  font-family: "El Messiri", sans-serif;
 }
 
 .btn {
@@ -42,8 +36,13 @@ body {
   padding: 10px 20px;
   border: 2px blue None;
   margin: 10px;
+  font-family: "El Messiri", sans-serif;
 }
 
 .btn:hover {
+  background-color: rgb(240, 195, 111);
+}
+
+.btn:disabled {
   background-color: rgb(240, 195, 111);
 }

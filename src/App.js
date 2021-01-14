@@ -2,12 +2,18 @@ import React, { Component, useEffect } from "react";
 import WalletProvider from "./components/wallet";
 import BasisCash from "./components/BasisCash";
 import "./styles.css";
-// import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      cash: "loading",
+      cashprice: "loading",
+      bond: "loading",
+      bondPrice: "loading",
+      share: "loading",
+      sharePrice: "loading"
+    };
   }
 
   componentDidMount() {
@@ -38,27 +44,23 @@ class App extends Component {
   render() {
     return (
       <div>
-        <p className="icon">🍵</p>
-        <h1 align="center">Basis Cash DApp</h1>
+        <h1>🍵 Basis Cash DApp</h1>
+        <div className="card">
+          <h2>Basis Cash</h2>
+          <p>Current Price: {this.state.cashprice} </p>
+          <p>Circulating Supply: {this.state.cash}</p>
+        </div>
+        <div className="card">
+          <h2>Basis Share</h2>
+          <p>Current Price: {this.state.sharePrice} </p>
+          <p>Total Supply: {this.state.share}</p>
+        </div>
+        <div className="card">
+          <h2>Basis Bond</h2>
+          <p>Current Price: {this.state.bondPrice} </p>
+          <p>Total Supply: {this.state.bond}</p>
+        </div>
         <WalletProvider />
-        <div className="card">
-          <p>Basis Cash Total Supply: </p>
-          <h2>{this.state.cash}</h2>
-          <p>Basis Cash State From Uniswap: </p>
-          <h2>{this.state.cashprice}</h2>
-        </div>
-        <div className="card">
-          <p>Basis Share Supply: </p>
-          <h2>{this.state.share}</h2>
-          <p>Basis Share State From Uniswap: </p>
-          <h2>{this.state.sharePrice}</h2>
-        </div>
-        <div className="card">
-          <p>Basis Bond Supply: </p>
-          <h2>{this.state.bond}</h2>
-          <p>Basis Bond State From Uniswap: </p>
-          <h2>{this.state.bondPrice}</h2>
-        </div>
       </div>
     );
   }

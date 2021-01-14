@@ -4,7 +4,9 @@ import BasisCash from "./BasisCash";
 
 const APPROVE_AMOUNT = ethers.constants.MaxUint256;
 
-function approveToken(basis, token) {
+function approveToken(wallet, token) {
+  const basis = new BasisCash();
+  basis.unlockWallet(wallet.ethereum, wallet.account);
   if (token == "BAC") {
     console.log(basis.BAC.contract.approve(basis.BAC.address, APPROVE_AMOUNT));
   } else if (token == "BAS") {
