@@ -19,7 +19,7 @@ function WalletProvider() {
         <p align="center">
           Wallet status:{" "}
           {wallet.status === "error" ? (
-            <span>please connect to mainnet</span>
+            <span>please connect to the mainnet</span>
           ) : (
             <span>{wallet.status}</span>
           )}
@@ -27,8 +27,8 @@ function WalletProvider() {
         {wallet.status === "connected" ? (
           <div>
             <div align="center">
-              Account: {wallet.account}
-              <button className="btn" onClick={() => wallet.reset()}>
+              <p>Account: {wallet.account}</p>
+              <button className="btn2" onClick={() => wallet.reset()}>
                 Disconnect
               </button>
             </div>
@@ -39,7 +39,7 @@ function WalletProvider() {
           </div>
         ) : (
           <div align="center">
-            <button className="btn" onClick={() => wallet.connect()}>
+            <button className="btn2" onClick={() => wallet.connect()}>
               Connect to MetaMask
             </button>
           </div>

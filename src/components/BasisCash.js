@@ -119,14 +119,13 @@ export class BasisCash {
   }
 
   async getBondStat() {
-    // const decimals = BigNumber.from(10).pow(18);
+    const decimals = BigNumber.from(10).pow(18);
 
-    // const cashPrice = await this.getBondOraclePriceInLastTWAP();
-    // const bondPrice = cashPrice.pow(2).div(decimals);
-    const cashPrice = await this.getTokenPriceFromUniswap(this.BAC);
+    const cashPrice = await this.getBondOraclePriceInLastTWAP();
+    const bondPrice = cashPrice.pow(2).div(decimals);
 
     return {
-      priceInDAI: (cashPrice ** 2).toFixed(3),
+      priceInDAI: this.getDisplayBalance(bondPrice),
       totalSupply: await this.BAB.displayTotalSupply()
     };
   }
@@ -244,7 +243,7 @@ export class BasisCash {
     return "latest";
   }
 
-  boardroomVersion(version) {
+  boardroomByVersion(version) {
     if (version === "v1") {
       return this.contracts.Boardroom1;
     }

@@ -49,7 +49,7 @@ class Bank extends Component {
     this.basis.harvest(this.poolName);
   }
 
-  eixt() {
+  exit() {
     this.basis.exit(this.poolName);
   }
 
