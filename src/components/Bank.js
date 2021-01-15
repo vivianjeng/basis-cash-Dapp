@@ -1,58 +1,108 @@
 import React, { Component, useEffect } from "react";
 import approveToken from "./approve";
 import BasisCash from "./BasisCash";
+import { ethers, BigNumber } from "ethers";
 
-function approve(wallet, tokenName) {
-  const basis = new BasisCash();
-  basis.unlockWallet(wallet.ethereum, wallet.account);
-  approveToken(basis, tokenName);
-}
+class Bank extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { withdrawAmount: "", stakeAmount: "" };
+    this.basis = new BasisCash();
+    this.basis.unlockWallet(
+      this.props.wallet.ethereum,
+      this.props.wallet.account
+    );
+    if (this.props.token === "BAC_DAI-UNI-LPv2") {
+      this.poolName = "DAIBACLPTokenSharePool";
+    } else {
+      this.poolName = "DAIBASLPTokenSharePool";
+    }
 
-function Bank(wallet) {
-  return (
-    <div>
-      <div className="card">
-        <h2>Earn BAS by BAC-DAI-LP</h2>
-        <button
-          className="btn"
-          onClick={() => approve(wallet, "BAC_DAI-UNI-LPv2")}
-        >
-          Approve BAC_DAI-UNI-LPv2
-        </button>
-        <button className="btn" disabled="disabled">
-          Withdraw BAC_DAI-UNI-LPv2 <br /> (basisCash.unstake)
-        </button>
-        <button className="btn" disabled="disabled">
-          Stake BAC_DAI-UNI-LPv2 <br /> (basisCash.stake)
-        </button>
-        <button className="btn" disabled="disabled">
-          Harvest BAC_DAI-UNI-LPv2 <br /> (basisCash.harvest)
-        </button>
-        <button className="btn" disabled="disabled">
-          Redeem BAC_DAI-UNI-LPv2 <br /> (basisCash.exit)
-        </button>
-        <h2>Earn BAS by BAS-DAI-LP</h2>
-        <button
-          className="btn"
-          onClick={() => approve(wallet, "BAS_DAI-UNI-LPv2")}
-        >
-          Approve BAS_DAI-UNI-LPv2
-        </button>
-        <button className="btn" disabled="disabled">
-          Withdraw BAS_DAI-UNI-LPv2 <br /> (basisCash.unstake)
-        </button>
-        <button className="btn" disabled="disabled">
-          Stake BAS_DAI-UNI-LPv2 <br /> (basisCash.stake)
-        </button>
-        <button className="btn" disabled="disabled">
-          Harvest BAS_DAI-UNI-LPv2 <br /> (basisCash.harvest)
-        </button>
-        <button className="btn" disabled="disabled">
-          Redeem BAS_DAI-UNI-LPv2 <br /> (basisCash.exit)
-        </button>
+    this.handleChangeWithdraw = this.handleChangeWithdraw.bind(this);
+    this.handleChangeStake = this.handleChangeStake.bind(this);
+    this.handleWithdraw = this.handleWithdraw.bind(this);
+    this.handleStake = this.handleStake.bind(this);
+  }
+
+  handleChangeWithdraw(event) {
+    this.setState({ withdrawAmount: event.target.value });
+  }
+
+  handleChangeStake(event) {
+    this.setState({ stakeAmount: event.target.value });
+  }
+
+  handleWithdraw(event) {
+    this.basis.unstake(
+      this.poolName,
+      BigNumber.from(this.state.withdrawAmount)
+    );
+    event.preventDefault();
+  }
+
+  handleStake(event) {
+    this.basis.stake(this.poolName, BigNumber.from(this.state.stakeAmount));
+    event.preventDefault();
+  }
+
+  harvest() {
+    this.basis.harvest(this.poolName);
+  }
+
+  eixt() {
+    this.basis.exit(this.poolName);
+  }
+
+  render() {
+    return (
+      <div>
+        <div className="card2">
+          <h2>Earn BAS by {this.props.token}</h2>
+          <h3>Approve</h3>
+          <button
+            className="btn"
+            onClick={() => approveToken(this.props.wallet, this.props.token)}
+          >
+            Approve {this.props.token}
+          </button>
+          <h3>Withdraw</h3>
+          <form onSubmit={this.handleWithdraw}>
+            <label>
+              Amount:
+              <input
+                className="input"
+                type="text input"
+                value={this.state.withdrawAmount}
+                onChange={this.handleChangeWithdraw}
+              />
+            </label>
+            <input className="btn" type="submit" value="Withdraw"></input>
+          </form>
+          <h3>Stake</h3>
+          <form onSubmit={this.handleStake}>
+            <label>
+              Amount:
+              <input
+                className="input"
+                type="text input"
+                value={this.state.stakeAmount}
+                onChange={this.handleChangeStake}
+              />
+            </label>
+            <input className="btn" type="submit" value="Stake"></input>
+          </form>
+          <h3>Harvet</h3>
+          <button className="btn" onClick={() => this.harvest()}>
+            Harvest {this.poolName}
+          </button>
+          <h3>Exit</h3>
+          <button className="btn" onClick={() => this.exit()}>
+            Exit {this.poolName}
+          </button>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default Bank;

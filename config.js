@@ -16,3 +16,4 @@ export const externalTokens = {
   "BAC_DAI-UNI-LPv2": ["0xd4405F0704621DBe9d4dEA60E128E0C3b26bddbD", 18],
   "BAS_DAI-UNI-LPv2": ["0x0379dA7a5895D13037B6937b109fA8607a659ADF", 18]
 };
+export const gasLimitMultiplier = 1.1;

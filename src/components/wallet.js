@@ -32,7 +32,8 @@ function WalletProvider() {
                 Disconnect
               </button>
             </div>
-            <Bank wallet={wallet} />
+            <Bank wallet={wallet} token="BAC_DAI-UNI-LPv2" />
+            <Bank wallet={wallet} token="BAS_DAI-UNI-LPv2" />
             <Bonds wallet={wallet} />
             <Boardroom wallet={wallet} />
           </div>
